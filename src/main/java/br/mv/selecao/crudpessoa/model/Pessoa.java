@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
  * @author Rainer
  */
@@ -29,6 +31,7 @@ public class Pessoa {
 	
 	private String cpf;
 	
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	@Column(name = "DATANASCIMENTO")
 	private Date dataNascimento; 
