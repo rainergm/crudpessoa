@@ -14,4 +14,6 @@ public interface PessoaDAO {
 	Pessoa salvar(Pessoa pessoa);
 
 	List<Pessoa> pesquisar(String nome, String cpf);
+
+	Pessoa pesquisarPorId(Long id);
 }

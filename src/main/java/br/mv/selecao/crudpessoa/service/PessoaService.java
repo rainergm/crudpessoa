@@ -18,4 +18,6 @@ public interface PessoaService {
 	
 	void excluir(Long id);
 
+	Pessoa pesquisarPorId(Long id);
+
 }

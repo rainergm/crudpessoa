@@ -12,6 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -24,18 +27,23 @@ public class Pessoa {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	
+
+	@NotBlank(message = "O campo Nome é obrigatório.")
 	private String nome;
 	
+	@NotBlank(message = "O campo E-mail é obrigatório.")
 	private String email;
 	
+	@NotBlank(message = "O campo Cpf é obrigatório.")
 	private String cpf;
 	
+	@NotNull(message = "O campo Data é obrigatório.")
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	@Column(name = "DATANASCIMENTO")
 	private Date dataNascimento; 
 	
+	@Valid
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Telefone> telefones;
 

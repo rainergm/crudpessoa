@@ -46,4 +46,10 @@ public class PessoaDAOImpl implements PessoaDAO{
 		return query.list();
 	}
 
+	@Override
+	public Pessoa pesquisarPorId(Long id) {
+		Session session = entityManager.unwrap(Session.class);
+		return session.find(Pessoa.class, id);
+	}
+
 }

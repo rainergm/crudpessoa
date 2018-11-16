@@ -2,6 +2,8 @@ package br.mv.selecao.crudpessoa.resource;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,29 +33,34 @@ import br.mv.selecao.crudpessoa.service.PessoaService;
 public class PessoaResource {
 		
 	@Autowired
-	PessoaRepository pessoaRepository; 
+	private PessoaRepository pessoaRepository; 
 	
 	@Autowired
-	PessoaService pessoaService; 
+	private PessoaService pessoaService; 
 	
 	@GetMapping
 	@ResponseBody
 	public ResponseEntity<List<Pessoa>> pesquisarPessoas() {
-		//return pessoaRepository.findAll();
-		//return ResponseEntity.status(HttpStatus.OK).body(pessoaRepository.findAll());
+
 		return ResponseEntity.status(HttpStatus.OK).body(pessoaService.pesquisar(null, null));
 	}
 	
-	/*@GetMapping(value = {"/nome/{nome}", "/cpf/{cpf}", "/filtro/{nome}/{cpf}"})*/
-	@GetMapping(value = "/{nome}/{cpf}")
-	public List<Pessoa> pesquisarPessoasFiltradas(@PathVariable(required = false) String nome, 
-			@PathVariable(required = false) String cpf) {
+	@GetMapping("/{id}")
+	@ResponseBody
+	public ResponseEntity<Pessoa> pesquisarPessoa(@PathVariable Long id) {
+		return ResponseEntity.status(HttpStatus.OK).body(pessoaService.pesquisarPorId(id));
+	}
 	
-		return pessoaRepository.findByNomeContainingIgnoreCaseAndCpf(nome, cpf);
+	@GetMapping("/filtro")
+	public ResponseEntity<List<Pessoa>> pesquisarPessoasFiltradas(@RequestParam(required = false) String nome, 
+			@RequestParam(required = false) String cpf) {
+		
+		return ResponseEntity.status(HttpStatus.OK).body(pessoaService.pesquisar(nome, cpf));
 	}
 	
 	@PostMapping
-	public ResponseEntity<Pessoa> salvar(@RequestBody Pessoa pessoa) {
+	public ResponseEntity<Pessoa> salvar(@RequestBody @Valid Pessoa pessoa) {
+		
 		Pessoa pessoaSalva = pessoaRepository.save(pessoa);
 		return ResponseEntity.status(HttpStatus.CREATED).body(pessoaSalva);
 	}

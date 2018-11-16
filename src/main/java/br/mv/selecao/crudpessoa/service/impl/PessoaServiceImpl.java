@@ -40,6 +40,11 @@ public class PessoaServiceImpl implements PessoaService {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public Pessoa pesquisarPorId(Long id) {
+		return pessoaDAO.pesquisarPorId(id);
+	}
 	
 	
 }
