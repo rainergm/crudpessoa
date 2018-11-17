@@ -8,7 +8,6 @@ import br.mv.selecao.crudpessoa.model.Pessoa;
  * @author Rainer
  *
  */
-
 public interface PessoaDAO {
 	
 	Pessoa salvar(Pessoa pessoa);
@@ -16,4 +15,6 @@ public interface PessoaDAO {
 	List<Pessoa> pesquisar(String nome, String cpf);
 
 	Pessoa pesquisarPorId(Long id);
+	
+	void remover(Long id); 
 }

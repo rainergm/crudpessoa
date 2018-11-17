@@ -2,8 +2,6 @@ package br.mv.selecao.crudpessoa.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Component;
-
 import br.mv.selecao.crudpessoa.model.Pessoa;
 
 /**
@@ -16,7 +14,7 @@ public interface PessoaService {
 	
 	List<Pessoa> pesquisar(String nome, String cpf);
 	
-	void excluir(Long id);
+	void remover(Long id);
 
 	Pessoa pesquisarPorId(Long id);
 

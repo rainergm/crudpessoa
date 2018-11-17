@@ -2,14 +2,8 @@ package br.mv.selecao.crudpessoa.service.impl;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
-import org.hibernate.Session;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
+import org.springframework.stereotype.Service;
 
 import br.mv.selecao.crudpessoa.dao.PessoaDAO;
 import br.mv.selecao.crudpessoa.model.Pessoa;
@@ -18,7 +12,7 @@ import br.mv.selecao.crudpessoa.service.PessoaService;
 /**
  * @author Rainer
  */
-@Component
+@Service
 public class PessoaServiceImpl implements PessoaService {
 	
 	@Autowired
@@ -26,8 +20,7 @@ public class PessoaServiceImpl implements PessoaService {
 	
 	@Override
 	public Pessoa salvar(Pessoa pessoa) {
-		
-		return null;
+		return pessoaDAO.salvar(pessoa);
 	}
 
 	@Override
@@ -36,9 +29,8 @@ public class PessoaServiceImpl implements PessoaService {
 	}
 
 	@Override
-	public void excluir(Long id) {
-		// TODO Auto-generated method stub
-		
+	public void remover(Long id) {
+		pessoaDAO.remover(id);
 	}
 
 	@Override

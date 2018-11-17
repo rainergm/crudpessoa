@@ -14,14 +14,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.mv.selecao.crudpessoa.model.Pessoa;
-import br.mv.selecao.crudpessoa.repository.PessoaRepository;
 import br.mv.selecao.crudpessoa.service.PessoaService;
 
 /**
@@ -32,9 +30,6 @@ import br.mv.selecao.crudpessoa.service.PessoaService;
 @RequestMapping("/pessoa")
 public class PessoaResource {
 		
-	@Autowired
-	private PessoaRepository pessoaRepository; 
-	
 	@Autowired
 	private PessoaService pessoaService; 
 	
@@ -61,13 +56,14 @@ public class PessoaResource {
 	@PostMapping
 	public ResponseEntity<Pessoa> salvar(@RequestBody @Valid Pessoa pessoa) {
 		
-		Pessoa pessoaSalva = pessoaRepository.save(pessoa);
+		Pessoa pessoaSalva = pessoaService.salvar(pessoa);
 		return ResponseEntity.status(HttpStatus.CREATED).body(pessoaSalva);
 	}
 	
 	@DeleteMapping("/{id}")
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
 	public void deletar(@PathVariable Long id) {
-		pessoaRepository.deleteById(id);
+
+		pessoaService.remover(id);
 	}
 }
